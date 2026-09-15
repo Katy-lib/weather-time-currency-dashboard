@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fff5fa;
+            color: #4a3540;
+        }
+
+        header {
+            margin: 20px;
+            height: 300px;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+            background-image: url("https://images.unsplash.com/photo-1534088568595-a066f410bcda?auto=format&fit=crop&w=1400&q=80");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 180, 210, 0.45);
+        }
+
+        .hero-text {
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-shadow: 0 2px 5px #8a536b;
+        }
+
+        .hero-text h1 {
+            font-size: 42px;
+            margin: 0 0 10px;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+        }
+
+        nav {
+            text-align: center;
+            margin: 20px;
+        }
+
+        nav a {
+            display: inline-block;
+            text-decoration: none;
+            background: #f28bb2;
+            color: white;
+            padding: 12px 25px;
+            margin: 5px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background: #df6698;
+        }
+
+        .date {
+            text-align: center;
+            font-size: 17px;
+            margin: 20px;
+            color: #8b6575;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 10px 20px 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(200, 100, 150, 0.12);
+        }
+
+        .card h2 {
+            color: #e56b9a;
+            margin-top: 0;
+        }
+
+        .cities {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .city {
+            background: #fff0f6;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .city h3 {
+            color: #d85c8d;
+        }
+
+        .weather {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .weather-icon {
+            font-size: 45px;
+        }
+
+        .currency {
+            text-align: center;
+        }
+
+        .currency input {
+            padding: 12px;
+            width: 180px;
+            border: 2px solid #f2a5c4;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .currency button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            background: #f28bb2;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .currency button:hover {
+            background: #df6698;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #9a7182;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                height: 250px;
+                margin: 10px;
+            }
+
+            .hero-text h1 {
+                font-size: 30px;
+            }
+
+            .cities {
+                grid-template-columns: 1fr;
+            }
+
+            nav a {
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="hero-text">
+            <h1>☁️ My Personal Dashboard</h1>
+            <p>Weather • Time • Currency</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#weather">🌤️ Weather</a>
+        <a href="#time">🕐 Time</a>
+        <a href="#currency">💰 Currency</a>
+    </nav>
+
+    <div class="date" id="date"></div>
+
+    <div class="container">
+
+        <!-- WEATHER -->
+        <div class="card" id="weather">
+            <h2>🌤️ Weather</h2>
+
+            <div class="cities">
+
+                <div class="city">
+                    <h3>🇹🇭 Chiang Mai</h3>
+                    <div class="weather" id="chiangMaiWeather">
+                        Loading...
+                    </div>
+                </div>
+
+                <div class="city">
+                    <h3>🇲🇲 Yangon</h3>
+                    <div class="weather" id="yangonWeather">
+                        Loading...
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TIME -->
+        <div class="card" id="time">
+            <h2>🕐 World Time</h2>
+
+            <div class="cities">
+
+                <div class="city">
+                    <h3>🇹🇭 Chiang Mai</h3>
+                    <div class="weather" id="chiangMaiTime">
+                        Loading...
+                    </div>
+                </div>
+
+                <div class="city">
+                    <h3>🇲🇲 Yangon</h3>
+                    <div class="weather" id="yangonTime">
+                        Loading...
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- CURRENCY -->
+        <div class="card" id="currency">
+            <h2>💰 Currency Converter</h2>
+
+            <div class="currency">
+                <p>Convert USD to Thai Baht and Myanmar Kyat</p>
+
+                <input
+                    type="number"
+                    id="usd"
+                    value="1"
+                    min="0"
+                >
+
+                <button onclick="convertCurrency()">
+                    Convert
+                </button>
+
+                <div class="result" id="currencyResult">
+                    Loading exchange rates...
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        💗 My Personal Dashboard
+    </footer>
+
+    <script>
+
+        // DATE
+        function showDate() {
+            let now = new Date();
+
+            document.getElementById("date").innerHTML =
+                now.toLocaleDateString("en-US", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                });
+        }
+
+        showDate();
+
+
+        // TIME
+        function updateTime() {
+
+            let chiangMai = new Date().toLocaleTimeString("en-US", {
+                timeZone: "Asia/Bangkok",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            });
+
+            let yangon = new Date().toLocaleTimeString("en-US", {
+                timeZone: "Asia/Yangon",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            });
+
+            document.getElementById("chiangMaiTime").innerHTML =
+                "🕐 " + chiangMai;
+
+            document.getElementById("yangonTime").innerHTML =
+                "🕐 " + yangon;
+        }
+
+        updateTime();
+        setInterval(updateTime, 1000);
+
+
+        // WEATHER
+        async function getWeather(
+            latitude,
+            longitude,
+            elementId
+        ) {
+
+            try {
+
+                let url =
+                    "https://api.open-meteo.com/v1/forecast" +
+                    "?latitude=" + latitude +
+                    "&longitude=" + longitude +
+                    "&current=temperature_2m,weather_code" +
+                    "&daily=temperature_2m_max,temperature_2m_min" +
+                    "&timezone=auto";
+
+                let response = await fetch(url);
+                let data = await response.json();
+
+                let temp = data.current.temperature_2m;
+                let code = data.current.weather_code;
+
+                let max = data.daily.temperature_2m_max[0];
+                let min = data.daily.temperature_2m_min[0];
+
+                let icon = "🌤️";
+
+                if (code == 0) {
+                    icon = "☀️";
+                } else if (code <= 3) {
+                    icon = "🌤️";
+                } else if (code <= 48) {
+                    icon = "🌫️";
+                } else if (code <= 67) {
+                    icon = "🌧️";
+                } else if (code <= 82) {
+                    icon = "🌦️";
+                } else {
+                    icon = "⛈️";
+                }
+
+                document.getElementById(elementId).innerHTML =
+                    "<div class='weather-icon'>" + icon + "</div>" +
+                    "Temperature: <b>" + temp + "°C</b><br>" +
+                    "Today: " + min + "°C - " + max + "°C";
+
+            } catch (error) {
+
+                document.getElementById(elementId).innerHTML =
+                    "Weather information unavailable.";
+
+            }
+        }
+
+        getWeather(
+            18.7883,
+            98.9853,
+            "chiangMaiWeather"
+        );
+
+        getWeather(
+            16.8661,
+            96.1561,
+            "yangonWeather"
+        );
+
+
+        // CURRENCY
+        let rates = {};
+
+        async function getCurrency() {
+
+            try {
+
+                let response =
+                    await fetch(
+                        "https://open.er-api.com/v6/latest/USD"
+                    );
+
+                let data = await response.json();
+
+                rates = data.rates;
+
+                convertCurrency();
+
+            } catch (error) {
+
+                document.getElementById("currencyResult").innerHTML =
+                    "Exchange rates unavailable.";
+
+            }
+        }
+
+        function convertCurrency() {
+
+            let usd =
+                Number(document.getElementById("usd").value);
+
+            let thb =
+                (usd * rates.THB).toFixed(2);
+
+            let mmk =
+                (usd * rates.MMK).toFixed(2);
+
+            document.getElementById("currencyResult").innerHTML =
+                "🇹🇭 " + usd + " USD = <b>" +
+                thb + " THB</b><br>" +
+                "🇲🇲 " + usd + " USD = <b>" +
+                mmk + " MMK</b>";
+
+        }
+
+        getCurrency();
+
+    </script>
+
+</body>
+</html>
